@@ -22,7 +22,7 @@ while True:
             continue
         else:
             print(cld("Deposito autorizado", "green"))
-            lista_de_operacoes.append(f"Deposito: R${deposito:.2f}")
+            lista_de_operacoes.append(f"Deposito: +R${deposito:.2f}")
             saldo += deposito
     if operacao == 2:
         print(cld(f"Operação {menu[2]} selecionada\n", "cyan"))
@@ -31,7 +31,7 @@ while True:
             print("Operção Falhou, Valor invalido")
         elif saque > 500:
             print(cld("Saque negado, pois ultrapassa o valor maximo por saque", "red"))
-        elif LIMITE_SAQUE == 0:
+        elif LIMITE_SAQUE == 0 and saque <= saldo:
             print(
                 cld(
                     "Você exedeu o limeite de 3 saques diarios tente novamente mais tarde!!!",
@@ -42,15 +42,16 @@ while True:
         elif saque <= 500 and saque <= saldo:
             LIMITE_SAQUE -= 1
             print(f"Saque de R${saque} autoriazado")
-            lista_de_operacoes.append(f"Saque: R${saque:.2f}")
+            lista_de_operacoes.append(f"Saque: -R${saque:.2f}")
             saldo -= saque
         else:
             print("Saldo Insuficiente")
+    msg = " EXTRATO DA CONTA ".center(50, "=")
     if operacao == 3:
         print(cld(f"Operação {menu[3]} selecionada\n", "cyan"))
-        print(cld("EXTRATO DA CONTA", "cyan"))
+        print(cld(msg, "cyan"))
         if len(lista_de_operacoes) == 0:
-            print("Não á transações á serem exibidas")
+            print(cld("Não á transações á serem exibidas", "yellow"))
         for i in lista_de_operacoes:
             if i[:8] == menu[1]:
                 print(cld(f"{i}", "green"))
@@ -59,8 +60,10 @@ while True:
         print(cld("Saldo Atual", "cyan"))
         if saldo == 0:
             print(cld(f"R${saldo:.2f}", "red"))
+            print(cld("=" * len(msg), "cyan"))
         else:
             print(cld(f"R${saldo:.2f}", "green"))
+            print(cld("=" * len(msg), "cyan"))
     if operacao == 4:
         print("Fim da operação")
         break
