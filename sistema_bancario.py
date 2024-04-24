@@ -45,7 +45,7 @@ while True:
             lista_de_operacoes.append(f"Saque: -R${saque:.2f}")
             saldo -= saque
         else:
-            print("Saldo Insuficiente")
+            cld(print("Saldo Insuficiente", "red"))
     msg = " EXTRATO DA CONTA ".center(50, "=")
     if operacao == 3:
         print(cld(f"Operação {menu[3]} selecionada\n", "cyan"))
